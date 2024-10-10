@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TransactionService {
 
-    private Map<Long, Transaction> transactionsMap = new HashMap<>();
+    private static Map<Long, Transaction> transactionsMap = new HashMap<>();
     
 
     //Logica para añadir transaccion (la añade al mapa)
@@ -39,11 +39,13 @@ public class TransactionService {
         while(!queue.isEmpty()){
             long currentId = queue.poll();
             Transaction currentTransaction = transactionsMap.get(currentId);
-            sum += currentTransaction.getAmount();
+            if(currentTransaction != null){
+                sum += currentTransaction.getAmount();
 
-            transactionsMap.values().stream()
-                    .filter(t -> t.getParentId() == currentTransaction.getId())
-                    .forEach(t -> queue.add(t.getId()));
+                    transactionsMap.values().stream()
+                        .filter(t -> t.getParentId() != null && t.getParentId() == currentTransaction.getId())
+                        .forEach(t -> queue.add(t.getId()));
+            }
         }
         return sum;
     }

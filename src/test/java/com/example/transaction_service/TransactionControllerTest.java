@@ -48,6 +48,31 @@ public class TransactionControllerTest {
                 .andDo(print()); // Para que se muestre en consola
     }
 
+    @Test
+    public void testGetTotalAmount() throws Exception {
+        String transactionJson10 = "{\"amount\": 5000, \"type\": \"cars\"}";
+        String transactionJson11 = "{\"amount\": 10000, \"type\": \"shopping\", \"parentId\": 10}";
+        String transactionJson12 = "{\"amount\": 5000, \"type\": \"shopping\", \"parentId\": 11}";
 
+        mockMvc.perform(put("/transactions/10")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(transactionJson10))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(put("/transactions/11")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(transactionJson11))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(put("/transactions/12")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(transactionJson12))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(get("/transactions/sum/10")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.sum").value(20000.0));
+    }
 
 }
