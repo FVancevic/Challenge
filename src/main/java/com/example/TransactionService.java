@@ -1,7 +1,9 @@
 package com.example;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -15,4 +17,10 @@ public class TransactionService {
         transactionsMap.put(transaction.getId(), transaction);
     }
 
+    public List<Long> getTransactionsByType(String type) {
+        return transactionsMap.values().stream()
+                .filter(t -> t.getType().equals(type))
+                .map(Transaction::getId)
+                .collect(Collectors.toList());
+    }
 }
