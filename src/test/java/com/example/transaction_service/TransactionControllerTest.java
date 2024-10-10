@@ -50,6 +50,8 @@ public class TransactionControllerTest {
 
     @Test
     public void testGetTotalAmount() throws Exception {
+
+        //Para agregar las mismas transacciones que en el PDF
         String transactionJson10 = "{\"amount\": 5000, \"type\": \"cars\"}";
         String transactionJson11 = "{\"amount\": 10000, \"type\": \"shopping\", \"parentId\": 10}";
         String transactionJson12 = "{\"amount\": 5000, \"type\": \"shopping\", \"parentId\": 11}";

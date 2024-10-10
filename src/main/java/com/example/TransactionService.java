@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TransactionService {
 
-    private static Map<Long, Transaction> transactionsMap = new HashMap<>();
+    private Map<Long, Transaction> transactionsMap = new HashMap<>();
     
 
     //Logica para añadir transaccion (la añade al mapa)
