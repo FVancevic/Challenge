@@ -27,9 +27,10 @@ public class TransactionControllerTest {
                 .content(transactionJson))
                 .andExpect(status().isOk())
                 .andExpect(content().json("{\"status\": \"ok\"}"))
-                .andDo(print());
+                .andDo(print()); // Para que se muestre en consola
     }
 
+    @Test
     public void testGetTransactionsByType() throws Exception {
 
         //Agrego transaccion para que tenga datos que consultar
@@ -44,7 +45,9 @@ public class TransactionControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(1))
                 .andExpect(jsonPath("$[0]").value(10L))
-                .andDo(print());
+                .andDo(print()); // Para que se muestre en consola
     }
+
+
 
 }
