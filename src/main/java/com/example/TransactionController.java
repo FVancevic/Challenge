@@ -1,5 +1,6 @@
 package com.example;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,5 +30,12 @@ public class TransactionController {
     public ResponseEntity<List<Long>> getTransactionsByType(@PathVariable String type){
         return ResponseEntity.ok(transactionService.getTransactionsByType(type));
     }
-    
+
+    @GetMapping("/sum/{transaction_id}")
+    public ResponseEntity<Map<String, Double>> getTotalAmount(@PathVariable long transaction_id){
+        double total = transactionService.getTotalAmount(transaction_id);
+        Map<String, Double> sumMap = new HashMap<>();
+        sumMap.put("sum", total);
+        return ResponseEntity.ok(sumMap);
+    }
 }
