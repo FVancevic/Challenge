@@ -31,6 +31,8 @@ public class TransactionControllerTest {
     }
 
     public void testGetTransactionsByType() throws Exception {
+
+        //Agrego transaccion para que tenga datos que consultar
         String transactionJson = "{\"amount\": 5000, \"type\": \"cars\"}";
 
         mockMvc.perform(put("/transactions/10")
