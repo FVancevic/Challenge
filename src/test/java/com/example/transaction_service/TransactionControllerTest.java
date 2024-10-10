@@ -29,5 +29,20 @@ public class TransactionControllerTest {
                 .andExpect(content().json("{\"status\": \"ok\"}"))
                 .andDo(print());
     }
-    
+
+    public void testGetTransactionsByType() throws Exception {
+        String transactionJson = "{\"amount\": 5000, \"type\": \"cars\"}";
+
+        mockMvc.perform(put("/transactions/10")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(transactionJson))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(get("/transactions/types/cars"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(1))
+                .andExpect(jsonPath("$[0]").value(10L))
+                .andDo(print());
+    }
+
 }

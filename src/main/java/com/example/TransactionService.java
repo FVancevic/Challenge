@@ -14,11 +14,14 @@ public class TransactionService {
 
     private Map<Long, Transaction> transactionsMap = new HashMap<>();
     
+
+    //Logica para añadir transaccion (la añade al mapa)
     public void addTransaction(long id, Transaction transaction){
         transaction.setId(id);
         transactionsMap.put(transaction.getId(), transaction);
     }
 
+    //Logica para obtener la lista de id de todas las transacciones que coinciden en tipo
     public List<Long> getTransactionsByType(String type) {
         return transactionsMap.values().stream()
                 .filter(t -> t.getType().equals(type))
@@ -26,6 +29,7 @@ public class TransactionService {
                 .collect(Collectors.toList());
     }
 
+    //Logica para obtener la suma de los montos de todas las transacciones que se relacionan por su parentId
     public double getTotalAmount(long transactionId){
         double sum = 0;
 
